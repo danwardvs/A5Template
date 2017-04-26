@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="A5Template" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/A5Template" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+					<Add directory="/usr/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lallegro" />
+					<Add option="-lallegro_primitives" />
+					<Add option="-lallegro_image" />
+					<Add option="-lallegro_audio" />
+					<Add option="-lallegro_font" />
+					<Add option="-lallegro_color" />
+					<Add option="-lallegro_dialog" />
+					<Add option="-lallegro_ttf" />
+					<Add option="-lallegro_acodec" />
+					<Add directory="include" />
+					<Add directory="/usr/include" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
