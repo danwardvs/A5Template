@@ -2,6 +2,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <Box2D/Box2D.h>
+#include <box.h>
 
 // Events
 ALLEGRO_EVENT_QUEUE* event_queue = nullptr;
@@ -33,15 +34,19 @@ b2Vec2 gravity(0.0f, -10.0f);
 bool doSleep = true;
 
 	// Construct a world object, which will hold and simulate the rigid bodies.
-b2World world(gravity, doSleep);
+b2World gameWorld(gravity, doSleep);
 
 b2Body* body;
 
 b2Vec2 position;
 float32 angle;
 
+box myBox;
 
 void setup_b2(){
+
+
+
 	// Define the ground body.
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0.0f, -39.0f);
@@ -49,7 +54,7 @@ void setup_b2(){
 	// Call the body factory which allocates memory for the ground body
 	// from a pool and creates the ground box shape (also from a pool).
 	// The body is also added to the world.
-	b2Body* groundBody = world.CreateBody(&groundBodyDef);
+	b2Body* groundBody = gameWorld.CreateBody(&groundBodyDef);
 
 	// Define the ground box shape.
 	b2PolygonShape groundBox;
@@ -64,24 +69,11 @@ void setup_b2(){
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(0.0f, 0.0f);
-	body = world.CreateBody(&bodyDef);
+	body = gameWorld.CreateBody(&bodyDef);
 
-	// Define another box shape for our dynamic body.
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(1.0f, 1.0f);
 
-	// Define the dynamic body fixture.
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;
 
-	// Set the box density to be non-zero, so it will be dynamic.
-	fixtureDef.density = 1.0f;
-
-	// Override the default friction.
-	fixtureDef.friction = 0.3f;
-
-	// Add the shape to the body.
-	body->CreateFixture(&fixtureDef);
+  myBox.init(0,0,&gameWorld);
 
 	// Prepare for simulation. Typically we use a time step of 1/60 of a
 	// second (60Hz) and 10 iterations. This provides a high quality simulation
@@ -141,7 +133,7 @@ void update(){
   if( ev.type == ALLEGRO_EVENT_TIMER){
 
     // Update
-    		world.Step(timeStep, velocityIterations, positionIterations);
+    		gameWorld.Step(timeStep, velocityIterations, positionIterations);
     		position = body->GetPosition();
         angle = body->GetAngle();
 
@@ -160,7 +152,8 @@ void update(){
 
     al_clear_to_color( al_map_rgb(0,255,0));
 
-    draw();
+    //draw();
+    myBox.draw();
 
     al_flip_display();
 
@@ -184,6 +177,7 @@ int main(int argc, char **argv){
 
   setup();
   setup_b2();
+
 
   while(!closing)
     update();
