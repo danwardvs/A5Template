@@ -3,6 +3,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <Box2D/Box2D.h>
 #include <box.h>
+#include <vector>
 
 // Events
 ALLEGRO_EVENT_QUEUE* event_queue = nullptr;
@@ -38,10 +39,16 @@ b2World gameWorld(gravity, doSleep);
 
 b2Body* body;
 
-b2Vec2 position;
-float32 angle;
 
 box myBox;
+
+std::vector<box> gameBoxes;
+
+void create_box(float newX, float newY){
+  box newBox;
+  newBox.init(newX,newY,&gameWorld);
+  gameBoxes.push_back(newBox);
+}
 
 void setup_b2(){
 
@@ -71,9 +78,9 @@ void setup_b2(){
 	bodyDef.position.Set(0.0f, 0.0f);
 	body = gameWorld.CreateBody(&bodyDef);
 
+  create_box(0.8,0);
+  create_box(0.25f,1);
 
-
-  myBox.init(0,0,&gameWorld);
 
 	// Prepare for simulation. Typically we use a time step of 1/60 of a
 	// second (60Hz) and 10 iterations. This provides a high quality simulation
@@ -119,7 +126,6 @@ void setup(){
 
 
 void draw(){
-  al_draw_filled_rectangle(position.x*20, -position.y*20, (position.x+2)*20 , (-position.y+2)*20,al_map_rgb(255,0,0));
 }
 
 void update(){
@@ -134,8 +140,7 @@ void update(){
 
     // Update
     		gameWorld.Step(timeStep, velocityIterations, positionIterations);
-    		position = body->GetPosition();
-        angle = body->GetAngle();
+
 
 
   }
@@ -153,7 +158,8 @@ void update(){
     al_clear_to_color( al_map_rgb(0,255,0));
 
     //draw();
-    myBox.draw();
+    for(int i=0; i<gameBoxes.size(); i++)
+      gameBoxes[i].draw();
 
     al_flip_display();
 

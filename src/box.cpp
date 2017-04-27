@@ -41,10 +41,7 @@ void box::draw(){
   b2Vec2 position = body -> GetPosition();
   x = position.x;
   y = position.y;
-  ALLEGRO_TRANSFORM T;
 
-  //al_rotate_transform(&T, 1);
-  //al_use_transform(&T);
   al_draw_filled_rectangle(x*20, -y*20, (x+2)*20 , (-y+2)*20,al_map_rgb(255,0,0));
 }
 
