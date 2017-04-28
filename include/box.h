@@ -1,5 +1,7 @@
 #ifndef BOX_H
 #define BOX_H
+#include <allegro5/allegro.h>
+
 
 class b2World;
 class b2Body;
@@ -14,10 +16,11 @@ class box{
     void init(float, float, float, b2World *);
     void draw();
 
-  private:
+  protected:
     float x;
     float y;
     float angle;
+    ALLEGRO_COLOR color = al_map_rgb(0,0,0);
 
     float width;
     float height;

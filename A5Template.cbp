@@ -37,8 +37,12 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="include/box.h" />
+		<Unit filename="include/character.h" />
+		<Unit filename="include/mouseListener.h" />
 		<Unit filename="src/box.cpp" />
+		<Unit filename="src/character.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/mouseListener.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

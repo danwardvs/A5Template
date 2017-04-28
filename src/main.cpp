@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include <vector>
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <Box2D/Box2D.h>
+
 #include <box.h>
-#include <vector>
+#include <character.h>
 #include <mouseListener.h>
+
 
 // Events
 ALLEGRO_EVENT_QUEUE* event_queue = nullptr;
@@ -47,14 +51,22 @@ box myBox;
 
 std::vector<box> gameBoxes;
 
+
 void create_box(float newX, float newY){
   box newBox;
   newBox.init(newX,newY,&gameWorld);
   gameBoxes.push_back(newBox);
 }
 
-void setup_b2(){
+void create_character(float newX, float newY){
+  character newCharacter;
+  newCharacter.init(newX,newY,&gameWorld);
+  gameBoxes.push_back(newCharacter);
+}
 
+
+
+void b2_setup(){
 
 
 	// Define the ground body.
@@ -81,36 +93,12 @@ void setup_b2(){
 	bodyDef.position.Set(0.0f, 0.0f);
 	body = gameWorld.CreateBody(&bodyDef);
 
-  create_box(3,0);
-  //create_box(0.25f,1);
-  create_box(3.8,3);
-
-   create_box(4,1);
-  //create_box(0.25f,1);
-  create_box(3.8,3);
 
 
-   create_box(4,-1);
-  //create_box(0.25f,1);
-  create_box(3.8,-3);
-
-   create_box(5,-1);
-  //create_box(0.25f,1);
-  create_box(2,-3);
-
-
-
-	// Prepare for simulation. Typically we use a time step of 1/60 of a
-	// second (60Hz) and 10 iterations. This provides a high quality simulation
-	// in most game scenarios.
-
-	// This is our little game loop.
-
-		// Now print the position and angle of the body.
 
 }
 
-void setup(){
+void al_setup(){
 
 
   al_init();
@@ -134,11 +122,6 @@ void setup(){
 
   al_start_timer(timer);
 
-
-
-
-
-
 }
 
 
@@ -160,6 +143,9 @@ void update(){
 
         if(m_listener.mouse_pressed & 1)
           create_box(m_listener.mouse_x/20,-m_listener.mouse_y/20);
+
+         if(m_listener.mouse_pressed & 2)
+          create_character(m_listener.mouse_x/20,-m_listener.mouse_y/20);
     // Update
     		gameWorld.Step(timeStep, velocityIterations, positionIterations);
 
@@ -203,8 +189,8 @@ void update(){
 
 int main(int argc, char **argv){
 
-  setup();
-  setup_b2();
+  al_setup();
+  b2_setup();
 
 
   while(!closing)

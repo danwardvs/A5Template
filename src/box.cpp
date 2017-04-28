@@ -2,7 +2,6 @@
 #include <Box2D/Box2D.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
-#define PI 3.14159263
 
 box::box(){
 
@@ -13,6 +12,7 @@ void box::init(float newX, float newY, b2World *newGameWorld){
 
   width = 1.5;
   height = 1.5;
+  color = al_map_rgb(255,0,0);
 
   gameWorld = newGameWorld;
   b2BodyDef bodyDef;
@@ -40,11 +40,6 @@ void box::init(float newX, float newY, b2World *newGameWorld){
 
 }
 
-void box::init(float newX, float newY, float newFloat, b2World *newGameWorld){
-
-
-}
-
 
 void box::draw(){
 
@@ -66,15 +61,9 @@ void box::draw(){
 
   al_use_transform(&trans);
 
-  //al_draw_filled_rectangle(x*20, -y*20, (x+2)*20 , (-y+2)*20,al_map_rgb(255,0,0));
-
   al_draw_rectangle(-(width/2)*20, -(height/2)*20, (width/2)*20 , (height/2)*20,al_map_rgb(0,0,0),3);
 
-  al_draw_filled_rectangle(-(width/2)*20, -(height/2)*20, (width/2)*20 , (height/2)*20,al_map_rgb(255,0,0));
-
-
-
-
+  al_draw_filled_rectangle(-(width/2)*20, -(height/2)*20, (width/2)*20 , (height/2)*20,color);
 
   // restore the old transform
   al_use_transform(&prevTrans);
