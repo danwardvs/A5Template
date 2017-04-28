@@ -4,11 +4,14 @@
 #include <Box2D/Box2D.h>
 #include <box.h>
 #include <vector>
+#include <mouseListener.h>
 
 // Events
 ALLEGRO_EVENT_QUEUE* event_queue = nullptr;
 ALLEGRO_TIMER* timer = nullptr;
 ALLEGRO_DISPLAY *display;
+
+mouseListener m_listener;
 
 // Fps timer
 int fps;
@@ -56,7 +59,7 @@ void setup_b2(){
 
 	// Define the ground body.
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -38.0f);
+	groundBodyDef.position.Set(0.0f, -40.0f);
 
 	// Call the body factory which allocates memory for the ground body
 	// from a pool and creates the ground box shape (also from a pool).
@@ -94,6 +97,7 @@ void setup_b2(){
    create_box(5,-1);
   //create_box(0.25f,1);
   create_box(2,-3);
+
 
 
 	// Prepare for simulation. Typically we use a time step of 1/60 of a
@@ -152,6 +156,10 @@ void update(){
   // Timer
   if( ev.type == ALLEGRO_EVENT_TIMER){
 
+        m_listener.update();
+
+        if(m_listener.mouse_pressed & 1)
+          create_box(m_listener.mouse_x/20,-m_listener.mouse_y/20);
     // Update
     		gameWorld.Step(timeStep, velocityIterations, positionIterations);
 

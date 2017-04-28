@@ -11,8 +11,8 @@ box::box(){
 
 void box::init(float newX, float newY, b2World *newGameWorld){
 
-  width = 1;
-  height = 1;
+  width = 1.5;
+  height = 1.5;
 
   gameWorld = newGameWorld;
   b2BodyDef bodyDef;
