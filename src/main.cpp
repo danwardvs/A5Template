@@ -56,7 +56,7 @@ void setup_b2(){
 
 	// Define the ground body.
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -39.0f);
+	groundBodyDef.position.Set(0.0f, -38.0f);
 
 	// Call the body factory which allocates memory for the ground body
 	// from a pool and creates the ground box shape (also from a pool).
@@ -78,8 +78,22 @@ void setup_b2(){
 	bodyDef.position.Set(0.0f, 0.0f);
 	body = gameWorld.CreateBody(&bodyDef);
 
-  create_box(0.8,0);
-  create_box(0.25f,1);
+  create_box(3,0);
+  //create_box(0.25f,1);
+  create_box(3.8,3);
+
+   create_box(4,1);
+  //create_box(0.25f,1);
+  create_box(3.8,3);
+
+
+   create_box(4,-1);
+  //create_box(0.25f,1);
+  create_box(3.8,-3);
+
+   create_box(5,-1);
+  //create_box(0.25f,1);
+  create_box(2,-3);
 
 
 	// Prepare for simulation. Typically we use a time step of 1/60 of a

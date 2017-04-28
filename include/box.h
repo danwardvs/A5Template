@@ -11,11 +11,13 @@ class box{
     box();
     ~box();
     void init(float, float, b2World *);
+    void init(float, float, float, b2World *);
     void draw();
 
   private:
     float x;
     float y;
+    float angle;
 
     float width;
     float height;
