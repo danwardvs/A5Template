@@ -1,6 +1,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <Box2D/Box2D.h>
+#include <iostream>
 
 #include "Box.h"
 
@@ -10,6 +11,8 @@ Box::Box(){
 }
 
 void Box::init(float newX, float newY, b2World *newGameWorld){
+
+  std::cout<<"Created Box\n";
 
   type = BOX;
   width = 1.5;
@@ -47,6 +50,7 @@ int Box::getType(){
 
 // polymorpism haxx until I figure out nice casting and identification
 void Box::update(){
+  std::cout<<"Houston, we have a problem\n";
 
 
 }
@@ -56,12 +60,12 @@ void Box::draw(){
 
   // If the object is a character, the position is updated in the
   // update loop rather than in draw
- // if(type==BOX){
+  if(type==BOX){
     b2Vec2 position = body -> GetPosition();
     x = position.x;
     y = position.y;
     angle = body -> GetAngle();
- // }
+ }
   ALLEGRO_TRANSFORM trans, prevTrans;
 
   // back up the current transform

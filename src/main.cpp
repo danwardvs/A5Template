@@ -53,18 +53,18 @@ b2World gameWorld(gravity, doSleep);
 
 b2Body* body;
 
-std::vector<Box> gameBoxes;
+std::vector<Box*> gameBoxes;
 
 
 void create_box(float newX, float newY){
-  Box newBox;
-  newBox.init(newX,newY,&gameWorld);
+  Box *newBox = new Box();
+  newBox -> init(newX,newY,&gameWorld);
   gameBoxes.push_back(newBox);
 }
 
 void create_character(float newX, float newY){
-  Character newCharacter;
-  newCharacter.init(newX,newY,&gameWorld, &k_listener);
+  Character *newCharacter = new Character();
+  newCharacter -> init(newX,newY,&gameWorld, &k_listener);
   gameBoxes.push_back(newCharacter);
 }
 
@@ -188,10 +188,12 @@ void update(){
 
     //draw();
     for(int i=0; i<gameBoxes.size(); i++){
-      if(gameBoxes[i].getType()==CHARACTER){
-        gameBoxes[i].update();
+
+      if(gameBoxes[i] -> getType()==CHARACTER){
+       // Character *newCharacter = dynamic_cast<Character*>(&gameBoxes[i]);
+        gameBoxes[i] -> update();
       }
-      gameBoxes[i].draw();
+      gameBoxes[i] -> draw();
 
     }
 

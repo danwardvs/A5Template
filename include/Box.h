@@ -15,7 +15,7 @@ class Box{
     void init(float, float, b2World *);
     void init(float, float, float, b2World *);
     void draw();
-    void update();
+    virtual void update();
     int getType();
 
   protected:

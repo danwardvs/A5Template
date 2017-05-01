@@ -10,13 +10,24 @@ Character::Character(){
 
 void Character::update(){
 
+//std::cout<<"Character updated\n";
+
+
   b2Vec2 position = body -> GetPosition();
   x = position.x;
   y = position.y;
   angle = body -> GetAngle();
 
   if(gameKeyListener -> key[ALLEGRO_KEY_A])
-    body -> ApplyForce(position, b2Vec2(1000,0));
+    body -> ApplyForce(b2Vec2(-100,0),position);
+
+  if(gameKeyListener -> key[ALLEGRO_KEY_D])
+    body -> ApplyForce(b2Vec2(100,0),position);
+
+  if(gameKeyListener -> key[ALLEGRO_KEY_W])
+    body -> ApplyForce(b2Vec2(0,100),position);
+
+
 
 }
 
@@ -49,6 +60,8 @@ void Character::init(float newX, float newY, b2World *newGameWorld, keyListener 
 
 	// Add the shape to the body.
 	body->CreateFixture(&fixtureDef);
+
+  body ->SetFixedRotation(true);
 
 
 }
