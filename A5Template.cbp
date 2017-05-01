@@ -36,11 +36,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="include/box.h" />
-		<Unit filename="include/character.h" />
+		<Unit filename="include/Box.h" />
+		<Unit filename="include/Character.h" />
+		<Unit filename="include/joystickListener.h" />
+		<Unit filename="include/keyListener.h" />
 		<Unit filename="include/mouseListener.h" />
-		<Unit filename="src/box.cpp" />
-		<Unit filename="src/character.cpp" />
+		<Unit filename="src/Box.cpp" />
+		<Unit filename="src/Character.cpp" />
+		<Unit filename="src/joystickListener.cpp" />
+		<Unit filename="src/keyListener.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/mouseListener.cpp" />
 		<Extensions>

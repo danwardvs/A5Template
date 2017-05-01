@@ -5,9 +5,13 @@
 #include <allegro5/allegro_primitives.h>
 #include <Box2D/Box2D.h>
 
-#include <box.h>
-#include <character.h>
+#include <Box.h>
+#include <Character.h>
 #include <mouseListener.h>
+#include <keyListener.h>
+#include <joystickListener.h>
+
+
 
 
 // Events
@@ -16,6 +20,8 @@ ALLEGRO_TIMER* timer = nullptr;
 ALLEGRO_DISPLAY *display;
 
 mouseListener m_listener;
+keyListener k_listener;
+joystickListener j_listener;
 
 // Fps timer
 int fps;
@@ -26,6 +32,7 @@ int frame_index = 0;
 
 // Closing or naw
 bool closing = false;
+bool joystick_enabled = false;
 
 float32 timeStep = 1.0f / 60.0f;
 int32 velocityIterations = 6;
@@ -46,21 +53,18 @@ b2World gameWorld(gravity, doSleep);
 
 b2Body* body;
 
-
-box myBox;
-
-std::vector<box> gameBoxes;
+std::vector<Box> gameBoxes;
 
 
 void create_box(float newX, float newY){
-  box newBox;
+  Box newBox;
   newBox.init(newX,newY,&gameWorld);
   gameBoxes.push_back(newBox);
 }
 
 void create_character(float newX, float newY){
-  character newCharacter;
-  newCharacter.init(newX,newY,&gameWorld);
+  Character newCharacter;
+  newCharacter.init(newX,newY,&gameWorld, &k_listener);
   gameBoxes.push_back(newCharacter);
 }
 
@@ -140,6 +144,8 @@ void update(){
   if( ev.type == ALLEGRO_EVENT_TIMER){
 
         m_listener.update();
+        k_listener.update();
+        j_listener.update();
 
         if(m_listener.mouse_pressed & 1)
           create_box(m_listener.mouse_x/20,-m_listener.mouse_y/20);
@@ -158,6 +164,21 @@ void update(){
 
   }
 
+   // Keyboard
+  else if( ev.type == ALLEGRO_EVENT_KEY_DOWN || ev.type == ALLEGRO_EVENT_KEY_UP){
+    k_listener.on_event( ev.type, ev.keyboard.keycode);
+  }
+  // Joystick
+  else if( ev.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN || ev.type == ALLEGRO_EVENT_JOYSTICK_BUTTON_UP){
+    j_listener.on_event( ev.type, ev.joystick.button);
+  }
+  // Joystick plugged or unplugged
+  else if( ev.type == ALLEGRO_EVENT_JOYSTICK_CONFIGURATION){
+    al_reconfigure_joysticks();
+    joystick_enabled = (al_get_num_joysticks() > 0);
+  }
+
+
   if( al_is_event_queue_empty(event_queue)){
 
     // Draw
@@ -166,8 +187,13 @@ void update(){
     al_clear_to_color( al_map_rgb(0,255,0));
 
     //draw();
-    for(int i=0; i<gameBoxes.size(); i++)
+    for(int i=0; i<gameBoxes.size(); i++){
+      if(gameBoxes[i].getType()==CHARACTER){
+        gameBoxes[i].update();
+      }
       gameBoxes[i].draw();
+
+    }
 
     al_flip_display();
 

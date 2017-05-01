@@ -1,15 +1,17 @@
-#include "box.h"
-#include <Box2D/Box2D.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <Box2D/Box2D.h>
 
-box::box(){
+#include "Box.h"
+
+Box::Box(){
 
 
 }
 
-void box::init(float newX, float newY, b2World *newGameWorld){
+void Box::init(float newX, float newY, b2World *newGameWorld){
 
+  type = BOX;
   width = 1.5;
   height = 1.5;
   color = al_map_rgb(255,0,0);
@@ -39,15 +41,27 @@ void box::init(float newX, float newY, b2World *newGameWorld){
 
 
 }
+int Box::getType(){
+  return type;
+}
+
+// polymorpism haxx until I figure out nice casting and identification
+void Box::update(){
 
 
-void box::draw(){
+}
 
-  b2Vec2 position = body -> GetPosition();
-  x = position.x;
-  y = position.y;
-  angle = body -> GetAngle();
+void Box::draw(){
 
+
+  // If the object is a character, the position is updated in the
+  // update loop rather than in draw
+ // if(type==BOX){
+    b2Vec2 position = body -> GetPosition();
+    x = position.x;
+    y = position.y;
+    angle = body -> GetAngle();
+ // }
   ALLEGRO_TRANSFORM trans, prevTrans;
 
   // back up the current transform
@@ -57,7 +71,7 @@ void box::draw(){
   al_identity_transform(&trans);
 
   al_rotate_transform(&trans, -angle);
-  al_translate_transform(&trans, (x+width/2)*20, -(y+width/2)*20);
+  al_translate_transform(&trans, (x)*20, -(y)*20);
 
   al_use_transform(&trans);
 
@@ -70,7 +84,7 @@ void box::draw(){
 
 }
 
-box::~box(){
+Box::~Box(){
 
 
 }

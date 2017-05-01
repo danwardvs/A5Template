@@ -1,22 +1,27 @@
 #ifndef BOX_H
 #define BOX_H
 #include <allegro5/allegro.h>
-
+#define BOX 0
 
 class b2World;
 class b2Body;
 class b2BodyDef;
 class b2Vec2;
 
-class box{
+class Box{
   public:
-    box();
-    ~box();
+    Box();
+    ~Box();
     void init(float, float, b2World *);
     void init(float, float, float, b2World *);
     void draw();
+    void update();
+    int getType();
 
   protected:
+
+    int type;
+
     float x;
     float y;
     float angle;
@@ -27,6 +32,8 @@ class box{
 
     b2World *gameWorld;
     b2Body *body;
+
+
 
 
 

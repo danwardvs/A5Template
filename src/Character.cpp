@@ -1,15 +1,28 @@
-#include "character.h"
+#include "Character.h"
 #include <Box2D/Box2D.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
-character::character(){
+Character::Character(){
 
 
 }
 
-void character::init(float newX, float newY, b2World *newGameWorld){
+void Character::update(){
 
+  b2Vec2 position = body -> GetPosition();
+  x = position.x;
+  y = position.y;
+  angle = body -> GetAngle();
+
+  if(gameKeyListener -> key[ALLEGRO_KEY_A])
+    body -> ApplyForce(position, b2Vec2(1000,0));
+
+}
+
+void Character::init(float newX, float newY, b2World *newGameWorld, keyListener *newKeyListener){
+
+  type = CHARACTER;
   width = 2;
   height = 2;
   color = al_map_rgb(0,0,255);
@@ -41,7 +54,7 @@ void character::init(float newX, float newY, b2World *newGameWorld){
 }
 
 
-character::~character(){
+Character::~Character(){
 
 
 }
