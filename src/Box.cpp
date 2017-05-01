@@ -24,6 +24,8 @@ void Box::init(float newX, float newY, b2World *newGameWorld){
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(newX, newY);
 	body = gameWorld -> CreateBody(&bodyDef);
+	body ->SetLinearDamping(1);
+	body ->SetAngularDamping(1);
 
 	// Define another box shape for our dynamic body.
 	b2PolygonShape dynamicBox;
@@ -43,6 +45,7 @@ void Box::init(float newX, float newY, b2World *newGameWorld){
 	body->CreateFixture(&fixtureDef);
 
 
+
 }
 int Box::getType(){
   return type;
@@ -50,6 +53,8 @@ int Box::getType(){
 
 // polymorpism haxx until I figure out nice casting and identification
 void Box::update(){
+
+  // If you see this, you have a problem
   std::cout<<"Houston, we have a problem\n";
 
 

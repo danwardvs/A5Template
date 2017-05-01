@@ -27,6 +27,9 @@ void Character::update(){
   if(gameKeyListener -> key[ALLEGRO_KEY_W])
     body -> ApplyForce(b2Vec2(0,100),position);
 
+  if(gameKeyListener -> key[ALLEGRO_KEY_S])
+    body -> ApplyForce(b2Vec2(0,-100),position);
+
 
 
 }
@@ -43,6 +46,7 @@ void Character::init(float newX, float newY, b2World *newGameWorld, keyListener 
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(newX, newY);
 	body = gameWorld -> CreateBody(&bodyDef);
+	body ->SetLinearDamping(1);
 
 	// Define another box shape for our dynamic body.
 	b2PolygonShape dynamicBox;
