@@ -10,18 +10,22 @@ Box::Box(){
 
 }
 
-void Box::init(float newX, float newY, b2World *newGameWorld){
+void Box::init(float newX, float newY, float newWidth, float newHeight, bool newBodyType, b2World *newGameWorld){
 
   std::cout<<"Created Box\n";
 
   type = BOX;
-  width = 1.5;
-  height = 1.5;
+  width = newWidth;
+  height = newHeight;
   color = al_map_rgb(255,0,0);
 
   gameWorld = newGameWorld;
   b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
+  if(newBodyType)
+    bodyDef.type = b2_dynamicBody;
+	else
+	 bodyDef.type = b2_kinematicBody;
+
 	bodyDef.position.Set(newX, newY);
 	body = gameWorld -> CreateBody(&bodyDef);
 	body ->SetLinearDamping(1);
@@ -50,6 +54,15 @@ void Box::init(float newX, float newY, b2World *newGameWorld){
 int Box::getType(){
   return type;
 }
+float Box::getX(){
+  return x;
+}
+
+float Box::getY(){
+  return y;
+}
+
+
 
 // polymorpism haxx until I figure out nice casting and identification
 void Box::update(){

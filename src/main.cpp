@@ -56,9 +56,9 @@ b2Body* body;
 std::vector<Box*> gameBoxes;
 
 
-void create_box(float newX, float newY){
+void create_box(float newX, float newY, float newWidth, float newHeight, bool newBodyType){
   Box *newBox = new Box();
-  newBox -> init(newX,newY,&gameWorld);
+  newBox -> init(newX,newY,newWidth,newHeight,newBodyType,&gameWorld);
   gameBoxes.push_back(newBox);
 }
 
@@ -104,7 +104,6 @@ void b2_setup(){
 
 void al_setup(){
 
-
   al_init();
 
   al_install_keyboard();
@@ -148,9 +147,9 @@ void update(){
         j_listener.update();
 
         if(m_listener.mouse_pressed & 1)
-          create_box(m_listener.mouse_x/20,-m_listener.mouse_y/20);
+          create_box(m_listener.mouse_x/20,-m_listener.mouse_y/20,1,1,true);
 
-         if(m_listener.mouse_pressed & 2)
+        if(m_listener.mouse_pressed & 2)
           create_character(m_listener.mouse_x/20,-m_listener.mouse_y/20);
     // Update
     		gameWorld.Step(timeStep, velocityIterations, positionIterations);
@@ -219,7 +218,6 @@ int main(int argc, char **argv){
 
   al_setup();
   b2_setup();
-
 
   while(!closing)
     update();

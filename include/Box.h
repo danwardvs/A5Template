@@ -12,11 +12,12 @@ class Box{
   public:
     Box();
     ~Box();
-    void init(float, float, b2World *);
-    void init(float, float, float, b2World *);
+    void init(float, float, float, float, bool, b2World *);
     void draw();
     virtual void update();
     int getType();
+    float getX();
+    float getY();
 
   protected:
 

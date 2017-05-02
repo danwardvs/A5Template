@@ -39,6 +39,7 @@
 		</Compiler>
 		<Unit filename="include/Box.h" />
 		<Unit filename="include/Character.h" />
+		<Unit filename="include/globals.h" />
 		<Unit filename="include/joystickListener.h" />
 		<Unit filename="include/keyListener.h" />
 		<Unit filename="include/mouseListener.h" />

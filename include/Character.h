@@ -21,6 +21,7 @@ class Character : public Box{
 
   private:
     keyListener *gameKeyListener;
+    b2Body *sensor_body;
 
 
 

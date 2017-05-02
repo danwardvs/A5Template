@@ -68,6 +68,7 @@ void Character::init(float newX, float newY, b2World *newGameWorld, keyListener 
   body ->SetFixedRotation(true);
 
 
+
 }
 
 
