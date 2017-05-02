@@ -10,6 +10,7 @@ class b2Body;
 class b2BodyDef;
 class b2Vec2;
 class keyListener;
+class Sensor;
 
 class Character : public Box{
   public:
@@ -21,7 +22,7 @@ class Character : public Box{
 
   private:
     keyListener *gameKeyListener;
-    b2Body *sensor_body;
+    Sensor *sensor_box;
 
 
 

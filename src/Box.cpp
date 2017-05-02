@@ -45,8 +45,11 @@ void Box::init(float newX, float newY, float newWidth, float newHeight, bool new
 	// Override the default friction.
 	fixtureDef.friction = 0.3f;
 
+
 	// Add the shape to the body.
 	body->CreateFixture(&fixtureDef);
+
+
 
 
 
@@ -61,7 +64,10 @@ float Box::getX(){
 float Box::getY(){
   return y;
 }
-
+b2Body* Box::getBody(){
+  b2Body *newBody = body;
+  return newBody;
+}
 
 
 // polymorpism haxx until I figure out nice casting and identification

@@ -18,6 +18,7 @@ class Box{
     int getType();
     float getX();
     float getY();
+    b2Body *getBody();
 
   protected:
 

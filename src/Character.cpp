@@ -1,7 +1,9 @@
-#include "Character.h"
 #include <Box2D/Box2D.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+
+#include "Character.h"
+#include "Sensor.h"
 
 Character::Character(){
 
@@ -29,6 +31,13 @@ void Character::update(){
 
   if(gameKeyListener -> key[ALLEGRO_KEY_S])
     body -> ApplyForce(b2Vec2(0,-100),position);
+
+  if(sensor_box -> isColliding()){
+    color = al_map_rgb(50,100,255);
+
+  }else
+        color = al_map_rgb(0,0,255);
+
 
 
 
@@ -66,6 +75,9 @@ void Character::init(float newX, float newY, b2World *newGameWorld, keyListener 
 	body->CreateFixture(&fixtureDef);
 
   body ->SetFixedRotation(true);
+
+  sensor_box = new Sensor();
+  sensor_box -> init(newX,newY,5,5,gameWorld,body);
 
 
 

@@ -39,12 +39,14 @@
 		</Compiler>
 		<Unit filename="include/Box.h" />
 		<Unit filename="include/Character.h" />
+		<Unit filename="include/Sensor.h" />
 		<Unit filename="include/globals.h" />
 		<Unit filename="include/joystickListener.h" />
 		<Unit filename="include/keyListener.h" />
 		<Unit filename="include/mouseListener.h" />
 		<Unit filename="src/Box.cpp" />
 		<Unit filename="src/Character.cpp" />
+		<Unit filename="src/Sensor.cpp" />
 		<Unit filename="src/joystickListener.cpp" />
 		<Unit filename="src/keyListener.cpp" />
 		<Unit filename="src/main.cpp" />
